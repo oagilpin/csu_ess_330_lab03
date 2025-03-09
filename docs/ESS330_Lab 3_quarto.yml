@@ -1,3 +1,7 @@
+---
+project:
+  type: website
+
 website:
   title: "CSU ESS 330 Lab 03"
   output-dir: "docs"
@@ -10,3 +14,4 @@ date: "2025-03-09"
 format:
   html:
     self-contained: true
+---
