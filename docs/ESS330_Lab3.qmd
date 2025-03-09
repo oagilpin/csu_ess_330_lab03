@@ -5,6 +5,8 @@ author:
   name: "Olivia Gilpin: [GitHub](https://github.com/oagilpin)" 
   email: "ogilpin@colostate.edu"
 format: html
+execute:
+  echo: true
 theme: Sky
 editor: visual
 ---
