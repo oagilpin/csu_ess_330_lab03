@@ -359,7 +359,7 @@ Q8 = read_csv('https://raw.githubusercontent.com/mikejohnson51/csu-ess-330/refs/
   mutate(d = 1:n())
 ```
 
-```{r, fig.width=12, fig.height=5}
+```{r, fig.width=14, fig.height=5}
 library(patchwork)
 
 ls(Q8)
