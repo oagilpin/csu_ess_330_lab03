@@ -160,6 +160,7 @@ ggplot(x) +
   geom_col(aes(x = death_ratio, y = CTYNAME)) +
   theme_light() +
   labs(
+    title = "2021 Death Ratios by County in Colorado",
     x = "Death Ratio",   
     y = "County Name"    
   )
@@ -267,7 +268,7 @@ state_capita2 <- inner_join(state_covid, pop2, by = "state") |>
 
 perCapNewCasesRoll2 = state_capita2 |>
   group_by(date, state) |>
-  filter(state %in% c("Alabama", "New York", "Ohio", "Colorado")) |>
+  filter(state %in% c("New York", "Colorado", "Alabama", "Ohio")) |>
   group_by(state) |>
   mutate(newnewCasesPerCap = mean(sum(newCasesPerCap)),
          roll = zoo::rollmean(newCasesPerCap, k = 7, align = "right", fill = NA)) |>
@@ -276,13 +277,41 @@ perCapNewCasesRoll2 = state_capita2 |>
 perCapNewCasesRoll2 <- perCapNewCasesRoll2 |>
   select(-CTYNAME)
 
+perCapNewCasesRoll2 <- perCapNewCasesRoll2 %>%
+  filter(!is.na(newCasesPerCap) & !is.na(roll))
+
+perCapNewCasesRoll2 <- perCapNewCasesRoll2 %>%
+  mutate(newCasesPerCap = ifelse(is.na(newCasesPerCap), 0, newCasesPerCap),
+         roll = ifelse(is.na(roll), 0, roll))
+
 ggplot(perCapNewCasesRoll2, aes(x = date)) +
   geom_line(aes(y = roll, color = state), size = 0.5) +  
   theme_linedraw() +
-  scale_color_manual(values = c("orange", "navy", "green", "purple")) +
-  labs(title = "Seven-Day Rolling Averages of New Cases",
+  scale_color_manual(values = c("green", "navy", "pink", "purple")) +
+ scale_y_continuous(limits = c(0, 3.1)) +
+  labs(title = "Seven Day Rolling Averages of New Cases",
        x = "Date", y = "New Cases Per Capita")
 ```
+
+#Making Alabama more visible
+
+```{r}
+ggplot(perCapNewCasesRoll2, aes(x = date)) +
+  geom_line(data = perCapNewCasesRoll2 %>% filter(state != "Alabama"), 
+            aes(y = roll, color = state), size = 0.5) +
+  
+  geom_line(data = perCapNewCasesRoll2 %>% filter(state == "Alabama"), 
+            aes(y = roll, color = state), size = 1) + 
+  
+  theme_linedraw() +
+  scale_color_manual(values = c("pink", "navy", "green", "purple")) +
+  scale_y_continuous(limits = c(0, 3.1)) +
+  labs(title = "Seven-Day Rolling Averages of New Cases",
+       x = "Date", y = "New Cases Per Capita")
+  
+```
+
+
 #Q6 - Part 5: The influence scaling by population has on the analysis is that it normalizes the data, which allos for a more accurate comparison of COVID-19 cases across states with different population sizes. This is particularly important in reference to larger states, such as New York and Ohio, due to it possibly appearing less impacted since their new cases per capita are lower compared to raw case numbers. Whereas smaller states, like Alabama, could appear worse off in comparison due to their new cases per capita being possibly higher. This indicates a hgiher burden in correlation to their population size, which is where scaling makes larger states look better and small states look worse in terms of case severity.
 
 
@@ -330,7 +359,7 @@ Q8 = read_csv('https://raw.githubusercontent.com/mikejohnson51/csu-ess-330/refs/
   mutate(d = 1:n())
 ```
 
-```{r}
+```{r, fig.width=9, fig.height=4}
 library(patchwork)
 
 ls(Q8)
@@ -353,4 +382,5 @@ ggplot(Q8) +
        x = "Longitude", y = "Latitude", 
        title = "COVID-19 Deaths by Weighted Mean: Geographic Concentration") +
   theme(legend.position = "none")
+
 ```
