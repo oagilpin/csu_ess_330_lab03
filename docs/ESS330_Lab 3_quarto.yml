@@ -1,15 +1,15 @@
 ---
 project:
   type: website
-  website:
-   title: "CSU ESS 330 Lab 03"
-   author: "Olivia Gilpin"
-date: "2025-03-09"
-format:
-  html:
-    self-contained: true
-   output-dir: "docs"
-   navigation:
-     - text: "Home"
-        href: index.html
+website:
+  title: "CSU ESS 330: Lab 03"
+  author: "Olivia Gilpin"
+  date: "2025-03-09"
+  format:
+    html:
+      self-contained: true
+  output-dir: "docs"
+  navigation:
+    - text: "Home"
+      href: index.html
 ---
