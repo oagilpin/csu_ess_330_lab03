@@ -2,13 +2,10 @@
 title: "Lab 3: COVID-19"
 subtitle: 'Ecosystem Science and Sustainability 330'
 author: 
-  name: "Olivia Gilpin: [GitHub](https://github.com/oagilpin)" 
+- name: "Olivia Gilpin: [GitHub](https://github.com/oagilpin)" 
   email: "ogilpin@colostate.edu"
-date: 20205-03-09
+date: 2025-03-09
 format: html
-execute:
-  echo: true
-theme: Sky
 editor: visual
 ---
 
