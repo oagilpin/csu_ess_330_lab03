@@ -1,4 +1,11 @@
 ---
+website:
+  title: "CSU ESS 330 Lab 03"
+  output-dir: "docs"
+  navigation:
+    - text: "Home"
+      href: index.html
+
 title: "ESS330 Lab 3"
 author: "Olivia Gilpin"
 date: "2025-03-09"
