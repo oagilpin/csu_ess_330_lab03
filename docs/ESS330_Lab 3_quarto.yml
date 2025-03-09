@@ -1,10 +1,10 @@
 ---
 project:
-  title: "CSU ESS 330: Lab 03"
+  title: "Lab 3: COVID-19"
   output-dir: docs
   type: website
-  
+
 format:
-  html:
-      self-contained: true
+   html:
+    self-contained: true
 ---
